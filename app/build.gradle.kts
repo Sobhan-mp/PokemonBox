@@ -79,4 +79,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx.v287)
+
+    //Test
+// Or JUnit 5    // Coroutines testing
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+// Use the same version as your main coroutines lib
+// Mocking library
+    testImplementation("io.mockk:mockk:1.14.7")
+// Flow testing library
+    testImplementation("app.cash.turbine:turbine:1.1.0")
 }
