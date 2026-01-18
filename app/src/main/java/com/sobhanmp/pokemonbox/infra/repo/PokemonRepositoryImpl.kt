@@ -19,8 +19,8 @@ class PokemonRepositoryImpl @Inject constructor(private val api: PokemonApi): Po
         try {
             val pokemonList = api.getPokemonList(offset = offset, limit = 20)
 
-            val pokemons = pokemonList.results.map { res ->
-                coroutineScope {
+            val pokemons = coroutineScope { pokemonList.results.map { res ->
+
                     async {
                         val pokemonDetails = api.getPokemonDetails(res.name)
                         val pokemonSpecies = api.getPokemonSpecies(res.name)
