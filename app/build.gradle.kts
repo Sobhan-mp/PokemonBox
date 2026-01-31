@@ -5,6 +5,7 @@ plugins {
 
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+//    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -27,8 +28,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.adaptive.navigation3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -80,12 +81,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx.v287)
 
+    //Navigation-Compose
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.lifecycle.viewModel.navigation3 )
+
     //Test
-// Or JUnit 5    // Coroutines testing
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
-// Use the same version as your main coroutines lib
-// Mocking library
-    testImplementation("io.mockk:mockk:1.14.7")
-// Flow testing library
-    testImplementation("app.cash.turbine:turbine:1.1.0")
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
 }
