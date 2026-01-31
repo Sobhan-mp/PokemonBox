@@ -5,23 +5,20 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.sobhanmp.pokemonbox.ui.home.HomeScreen
-import com.sobhanmp.pokemonbox.ui.home.HomeState
+import com.sobhanmp.pokemonbox.ui.home.navigation.Home
 import com.sobhanmp.pokemonbox.ui.theme.PokemonBOXTheme
 import dagger.hilt.android.AndroidEntryPoint
-
-data object Home
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -31,20 +28,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             PokemonBOXTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val backStack = remember { mutableStateListOf<Any>(Home) }
+
+                    val backStack = remember { mutableStateListOf<NavKey>(Home) }
                     NavDisplay(
                         backStack = backStack,
-                        onBack = { backStack.removeLastOrNull() },
-                        entryProvider = { key ->
-                            when (key) {
-                                Home -> NavEntry(key) {
-                                    HomeScreen()
-                                }
-                                else -> NavEntry(Unit) {
-                                    Text("Error")
-                                }
-                            }
-                        },
+                        onBack = {backStack.removeLastOrNull()},
+                        entryProvider = entryProvider {
+                            entry<Home> { HomeScreen() }
+                        }
                     )
                 }
             }
